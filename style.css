@@ -1,0 +1,52 @@
+body {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+
+	margin:0;
+	padding:0;
+
+	height:100vh; /* <-- so our flex center center works! */
+}
+
+.turtle {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+
+	width:50%;
+	aspect-ratio:1;
+
+	background-color: lightgrey;
+}
+
+.turtle .body {
+	position:relative;
+
+	width:55%;
+	height:60%;
+
+	background-color: darkgreen;
+
+	z-index:1; /* I've added this! */
+}
+
+.turtle .body .head {
+	position: absolute;
+	top:-5%;
+	left:calc(50% - 20% / 2); /* I've added this! */
+
+	width:20%;
+	height:30%;
+
+	background-color: rgb(1, 82, 1);
+
+	z-index:-1; /* I've added this! */
+}
+
+/* QUESTION: Why does z-index not work? */
+/* What should we do differently with our HTML? */
+/*
+	-- Is maybe .head in the wrong spot?
+	-- should we move our position relative to .turtle instead?
+*/
