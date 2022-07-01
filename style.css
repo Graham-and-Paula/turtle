@@ -2,6 +2,7 @@ body {
 	display:flex;
 	justify-content: center;
 	align-items: center;
+	
 
 	margin:0;
 	padding:0;
@@ -10,39 +11,155 @@ body {
 }
 
 .turtle {
-	display:flex;
+	position: relative;
+
+	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	width:50%;
+	width:300px;
 	aspect-ratio:1;
-
-	background-color: lightgrey;
 }
 
 .turtle .body {
 	position:relative;
 
-	width:55%;
-	height:60%;
+	margin: auto;
+	width:200px;
+	aspect-ratio:0.9;
 
-	background-color: darkgreen;
+	background-image: url("/painting.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	/* border-radius: 70% 70% 80% 80%; */
+	border-top-left-radius:115px;
+	border-top-right-radius:115px;
+	border-bottom-left-radius:155px;
+	border-bottom-right-radius:155px;
 
-	z-index:1; /* I've added this! */
+	z-index:2; /* I've added this! */
 }
 
-.turtle .body .head {
+.turtle .head,
+.turtle .leg,
+.turtle .tale {
 	position: absolute;
-	top:-5%;
-	left:calc(50% - 20% / 2); /* I've added this! */
+	background-image: url("/skin.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 
-	width:20%;
-	height:30%;
+	filter: contrast(150%);
+	
+	z-index:1;
 
-	background-color: rgb(1, 82, 1);
+	transition:
+		top 3s,
+		bottom 3s,
+		right 3s,
+		left 3s,
+		transform 3s;
 
-	z-index:-1; /* I've added this! */
+	overflow:hidden;
 }
+
+.turtle .head::after,
+.turtle .leg::after,
+.turtle .tale::after {
+	content:"";
+
+	display:block;
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+
+	background-color: darkolivegreen;
+	mix-blend-mode: overlay;
+}
+
+.turtle .head,
+.turtle .tale {
+	--v-offset:5%;
+	--height:40px;
+	left:calc(50% - var(--width) / 2 );
+
+	width:var(--width);
+	height: var(--height);
+}
+
+.turtle .head {
+	--width:50px;
+	top:var(--v-offset);
+	border-radius: 50%;
+}
+
+.turtle .tale {
+	--width:20px;
+	bottom: var(--v-offset);
+	border-radius: 80%;
+}
+
+.turtle .leg {
+	--h-offset:7%;
+	--offset-base:55px;
+	--height:40px;
+	--center:calc(50% - var(--height) / 2);
+
+	width:50px;
+	height:var(--height);
+
+	top:calc(var(--center) + var(--offset));
+	border-radius: 40%;
+}
+
+.turtle .leg.left.up,
+.turtle .leg.right.bottom {
+	transform: rotate(25deg);
+}
+
+.turtle .leg.left.bottom,
+.turtle .leg.right.up {
+	transform: rotate(-25deg);
+}
+
+.turtle .leg.up {
+	--offset:calc(-1 * var(--offset-base));	
+}
+
+.turtle .leg.bottom {
+	--offset: var(--offset-base);
+}
+
+.turtle .leg.right {
+	right:var(--h-offset);
+}
+
+.turtle .leg.left {
+	left: var(--h-offset);
+}
+
+.turtle:hover .head,
+.turtle:hover .tale {
+	--v-offset:11%;
+}
+
+.turtle:hover .leg.right,
+.turtle:hover .leg.left {
+	--h-offset:11%;
+}
+.turtle:hover .leg.left.up,
+.turtle:hover .leg.right.bottom {
+	transform: rotate(10deg);
+}
+
+.turtle:hover .leg.left.bottom,
+.turtle:hover .leg.right.up {
+	transform: rotate(-10deg);
+}
+
 
 /* QUESTION: Why does z-index not work? */
 /* What should we do differently with our HTML? */
